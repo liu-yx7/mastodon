@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import Masonry from 'react-masonry-css'
 
 import { debounce } from 'lodash';
 
@@ -89,6 +90,13 @@ export default class StatusList extends ImmutablePureComponent {
     const { statusIds, featuredStatusIds, onLoadMore, timelineId, ...other }  = this.props;
     const { isLoading, isPartial } = other;
 
+    const breakpointColumnsObj = {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1
+    };
+
     if (isPartial) {
       return <RegenerationIndicator />;
     }
@@ -144,8 +152,18 @@ export default class StatusList extends ImmutablePureComponent {
     }
 
     return (
+      
       <ScrollableList {...other} showLoading={isLoading && statusIds.size === 0} onLoadMore={onLoadMore && this.handleLoadOlder} ref={this.setRef}>
+        
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column">
+        
         {scrollableContent}
+        
+        </Masonry>
+        
       </ScrollableList>
     );
   }

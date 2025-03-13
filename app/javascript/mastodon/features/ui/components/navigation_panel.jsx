@@ -153,11 +153,11 @@ class NavigationPanel extends Component {
             </>
           )}
 
-          {trendsEnabled ? (
+          {/* {trendsEnabled ? (
             <ColumnLink transparent to='/explore' icon='explore' iconComponent={ExploreIcon} activeIconComponent={ExploreActiveIcon} text={intl.formatMessage(messages.explore)} />
           ) : (
             <ColumnLink transparent to='/search' icon='search' iconComponent={SearchIcon} text={intl.formatMessage(messages.search)} />
-          )}
+          )} */}
 
           {(signedIn || timelinePreview) && (
             <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' iconComponent={PublicIcon} text={intl.formatMessage(messages.firehose)} />
@@ -169,17 +169,19 @@ class NavigationPanel extends Component {
               { disabledAccountId ? <DisabledAccountBanner /> : <SignInBanner /> }
             </div>
           )}
-
+          
+          <div className='flex-spacer' />
+          
           {signedIn && (
             <>
-              <ColumnLink transparent to='/conversations' icon='at' iconComponent={AlternateEmailIcon} text={intl.formatMessage(messages.direct)} />
-              <ColumnLink transparent to='/bookmarks' icon='bookmarks' iconComponent={BookmarksIcon} activeIconComponent={BookmarksActiveIcon} text={intl.formatMessage(messages.bookmarks)} />
-              <ColumnLink transparent to='/favourites' icon='star' iconComponent={StarIcon} activeIconComponent={StarActiveIcon} text={intl.formatMessage(messages.favourites)} />
-              <ColumnLink transparent to='/lists' icon='list-ul' iconComponent={ListAltIcon} activeIconComponent={ListAltActiveIcon} text={intl.formatMessage(messages.lists)} />
+              {/* <ColumnLink transparent to='/conversations' icon='at' iconComponent={AlternateEmailIcon} text={intl.formatMessage(messages.direct)} />
+              <ColumnLink transparent to='/bookmarks' icon='bookmarks' iconComponent={BookmarksIcon} activeIconComponent={BookmarksActiveIcon} text={intl.formatMessage(messages.bookmarks)} /> */}
+              {/* <ColumnLink transparent to='/favourites' icon='star' iconComponent={StarIcon} activeIconComponent={StarActiveIcon} text={intl.formatMessage(messages.favourites)} /> */}
+              {/* <ColumnLink transparent to='/lists' icon='list-ul' iconComponent={ListAltIcon} activeIconComponent={ListAltActiveIcon} text={intl.formatMessage(messages.lists)} /> */}
 
-              <ListPanel />
+              {/* <ListPanel /> */}
 
-              <hr />
+              {/* <hr /> */}
 
               <ColumnLink transparent href='/settings/preferences' icon='cog' iconComponent={SettingsIcon} text={intl.formatMessage(messages.preferences)} />
 
@@ -189,12 +191,12 @@ class NavigationPanel extends Component {
           )}
 
           <div className='navigation-panel__legal'>
-            <hr />
+            {/* <hr /> */}
             <ColumnLink transparent to='/about' icon='ellipsis-h' iconComponent={MoreHorizIcon} text={intl.formatMessage(messages.about)} />
           </div>
         </div>
 
-        <div className='flex-spacer' />
+        
 
         <NavigationPortal />
       </div>

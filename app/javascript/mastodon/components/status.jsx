@@ -464,7 +464,7 @@ class Status extends ImmutablePureComponent {
                 visible={this.state.showMedia}
                 onToggleVisibility={this.handleToggleMediaVisibility}
               />
-            )}
+            )}  
           </Bundle>
         );
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
@@ -546,7 +546,27 @@ class Status extends ImmutablePureComponent {
           {!skipPrepend && prepend}
 
           <div className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), 'status--in-thread': !!rootId, 'status--first-in-thread': previousId && (!connectUp || connectToRoot), muted: this.props.muted })} data-id={status.get('id')}>
+
+            {expanded && (
+              <>
+                {media}
+                <StatusContent
+                  status={status}
+                  onClick={this.handleClick}
+                  onTranslate={this.handleTranslate}
+                  collapsible
+                  onCollapsedToggle={this.handleCollapsedToggle}
+                  {...statusContentProps}
+                />
+                {hashtagBar}
+              </>
+            )}
+            
             {(connectReply || connectUp || connectToRoot) && <div className={classNames('status__line', { 'status__line--full': connectReply, 'status__line--first': !status.get('in_reply_to_id') && !connectToRoot })} />}
+            
+            {(status.get('spoiler_text').length > 0 && (!matchedFilters || this.state.showDespiteFilter)) && <ContentWarning text={status.getIn(['translation', 'spoilerHtml']) || status.get('spoilerHtml')} expanded={expanded} onClick={this.handleExpandedToggle} />}
+              
+            {matchedFilters && <FilterWarning title={matchedFilters.join(', ')} expanded={this.state.showDespiteFilter} onClick={this.handleFilterToggle} />}
 
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div onClick={this.handleClick} className='status__info'>
@@ -564,27 +584,8 @@ class Status extends ImmutablePureComponent {
               </a>
             </div>
 
-            {matchedFilters && <FilterWarning title={matchedFilters.join(', ')} expanded={this.state.showDespiteFilter} onClick={this.handleFilterToggle} />}
-
-            {(status.get('spoiler_text').length > 0 && (!matchedFilters || this.state.showDespiteFilter)) && <ContentWarning text={status.getIn(['translation', 'spoilerHtml']) || status.get('spoilerHtml')} expanded={expanded} onClick={this.handleExpandedToggle} />}
-
-            {expanded && (
-              <>
-                <StatusContent
-                  status={status}
-                  onClick={this.handleClick}
-                  onTranslate={this.handleTranslate}
-                  collapsible
-                  onCollapsedToggle={this.handleCollapsedToggle}
-                  {...statusContentProps}
-                />
-
-                {media}
-                {hashtagBar}
-              </>
-            )}
-
             <StatusActionBar scrollKey={scrollKey} status={status} account={account}  {...other} />
+
           </div>
         </div>
       </HotKeys>

@@ -6,6 +6,7 @@ import { List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
+import Masonry from 'react-masonry-css'
 
 import { TimelineHint } from 'mastodon/components/timeline_hint';
 import BundleColumnError from 'mastodon/features/ui/components/bundle_column_error';
@@ -194,24 +195,24 @@ class AccountTimeline extends ImmutablePureComponent {
     const remoteMessage = remote ? <RemoteHint accountId={accountId} url={remoteUrl} /> : null;
 
     return (
-      <Column>
+      <Column width="50%">
         <ColumnBackButton />
 
-        <StatusList
-          prepend={<HeaderContainer accountId={this.props.accountId} hideTabs={forceEmptyState} tagged={this.props.params.tagged} />}
-          alwaysPrepend
-          append={remoteMessage}
-          scrollKey='account_timeline'
-          statusIds={forceEmptyState ? emptyList : statusIds}
-          featuredStatusIds={featuredStatusIds}
-          isLoading={isLoading}
-          hasMore={!forceEmptyState && hasMore}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={emptyMessage}
-          bindToDocument={!multiColumn}
-          timelineId='account'
-          withCounters
-        />
+          <StatusList
+            prepend={<HeaderContainer accountId={this.props.accountId} hideTabs={forceEmptyState} tagged={this.props.params.tagged} />}
+            alwaysPrepend
+            append={remoteMessage}
+            scrollKey='account_timeline'
+            statusIds={forceEmptyState ? emptyList : statusIds}
+            featuredStatusIds={featuredStatusIds}
+            isLoading={isLoading}
+            hasMore={!forceEmptyState && hasMore}
+            onLoadMore={this.handleLoadMore}
+            emptyMessage={emptyMessage}
+            bindToDocument={!multiColumn}
+            timelineId='account'
+            withCounters
+          />
       </Column>
     );
   }

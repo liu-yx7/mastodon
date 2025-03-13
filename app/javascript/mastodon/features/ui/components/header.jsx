@@ -26,6 +26,7 @@ const Account = connect(state => ({
 
 const messages = defineMessages({
   search: { id: 'navigation_bar.search', defaultMessage: 'Search' },
+  searchPlaceholder: { id: 'navigation_bar.search_placeholder', defaultMessage: 'Search Mastodon' }, //add placeholder
 });
 
 const mapStateToProps = (state) => ({
@@ -65,7 +66,7 @@ class Header extends PureComponent {
     if (signedIn) {
       content = (
         <>
-          {location.pathname !== '/search' && <Link to='/search' className='button button-secondary' aria-label={intl.formatMessage(messages.search)}><Icon id='search' icon={SearchIcon} /></Link>}
+          {/* {location.pathname !== '/search' && <Link to='/search' className='button button-secondary' aria-label={intl.formatMessage(messages.search)}><Icon id='search' icon={SearchIcon} /></Link>} */}
           {location.pathname !== '/publish' && <Link to='/publish' className='button button-secondary'><FormattedMessage id='compose_form.publish_form' defaultMessage='New post' /></Link>}
           <Account />
         </>
@@ -109,6 +110,20 @@ class Header extends PureComponent {
           <SymbolLogo />
         </Link>
 
+        {location.pathname !== '/search' && (
+          <div className='ui__header__search'>
+            <Link to='/search' className='search-input-wrapper'>
+              <input
+                type='text'
+                className='search-input'
+                placeholder={intl.formatMessage(messages.searchPlaceholder)}
+                readOnly
+              />
+              <Icon id='search' icon={SearchIcon} className='search-icon' />
+            </Link>
+          </div>
+        )}
+        
         <div className='ui__header__links'>
           {content}
         </div>
