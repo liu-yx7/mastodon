@@ -1,0 +1,16 @@
+default: &default
+  # AI service provider settings
+  provider: placeholder  # Can be 'openai', 'anthropic', etc.
+  api_key: <%= ENV.fetch('AI_API_KEY', nil) %>
+  model: <%= ENV.fetch('AI_MODEL', 'gpt-3.5-turbo') %>
+  max_tokens: <%= ENV.fetch('AI_MAX_TOKENS', 1000) %>
+  temperature: <%= ENV.fetch('AI_TEMPERATURE', 0.7) %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

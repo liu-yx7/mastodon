@@ -212,4 +212,6 @@ Rails.application.routes.draw do
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false
+
+  # get 'ai', to: 'ai#show'
 end

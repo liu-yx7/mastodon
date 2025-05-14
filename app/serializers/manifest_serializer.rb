@@ -88,6 +88,10 @@ class ManifestSerializer < ActiveModel::Serializer
         name: 'Explore',
         url: '/explore',
       },
+      {
+        name: 'AI',
+        url: '/ai',
+      },
     ]
   end
 

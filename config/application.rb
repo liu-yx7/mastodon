@@ -85,6 +85,9 @@ module Mastodon
     config.action_mailer.deliver_later_queue_name = 'mailers'
     config.action_mailer.preview_paths << Rails.root.join('spec', 'mailers', 'previews')
 
+    # Load AI configuration
+    config.x.ai = config_for(:ai)
+
     # We use our own middleware for this
     config.public_file_server.enabled = false
 
@@ -111,7 +114,7 @@ module Mastodon
 
     if ENV.fetch('QUERY_LOG_TAGS_ENABLED', 'false') == 'true'
       config.active_record.query_log_tags_enabled = ENV.fetch('QUERY_LOG_TAGS_ENABLED', 'false') == 'true'
-      config.active_record.query_log_tags = [:namespaced_controller, :action, :sidekiq_job_class]
+      config.active_record.query_log_tags = [:namespacedf_controller, :action, :sidekiq_job_class]
     end
 
     config.to_prepare do

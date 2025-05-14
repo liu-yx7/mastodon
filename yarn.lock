@@ -2932,14 +2932,10 @@ __metadata:
     react-hotkeys: "npm:^1.1.4"
     react-immutable-proptypes: "npm:^2.2.0"
     react-immutable-pure-component: "npm:^2.2.2"
-<<<<<<< HEAD
-    react-intl: "npm:^6.4.2"
+    react-intl: "npm:^7.1.10"
     react-masonry-css: "npm:^1.0.16"
     react-motion: "npm:^0.5.2"
     react-notification: "npm:^6.8.5"
-=======
-    react-intl: "npm:^7.1.10"
->>>>>>> upstream/main
     react-overlays: "npm:^5.2.1"
     react-redux: "npm:^9.0.4"
     react-redux-loading-bar: "npm:^5.0.8"
@@ -13286,6 +13282,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"performance-now@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "performance-now@npm:0.2.0"
+  checksum: 10c0/d7f3824e443491208f7124b45d3280dbff889f8f048c3aee507109c24644d51a226eb07fd7ac51dd0eef144639590c57410c2d167bd4fdf0c5caa0101a449c3d
+  languageName: node
+  linkType: hard
+
+"performance-now@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "performance-now@npm:2.1.0"
+  checksum: 10c0/22c54de06f269e29f640e0e075207af57de5052a3d15e360c09b9a8663f393f6f45902006c1e71aa8a5a1cdfb1a47fe268826f8496d6425c362f00f5bc3e85d9
+  languageName: node
+  linkType: hard
+
 "pg-cloudflare@npm:^1.1.1":
   version: 1.1.1
   resolution: "pg-cloudflare@npm:1.1.1"
@@ -14548,7 +14558,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.10, prop-types@npm:^15.5.4, prop-types@npm:^15.5.8, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -14676,6 +14686,15 @@ __metadata:
   version: 4.0.4
   resolution: "quick-format-unescaped@npm:4.0.4"
   checksum: 10c0/fe5acc6f775b172ca5b4373df26f7e4fd347975578199e7d74b2ae4077f0af05baa27d231de1e80e8f72d88275ccc6028568a7a8c9ee5e7368ace0e18eff93a4
+  languageName: node
+  linkType: hard
+
+"raf@npm:^3.1.0":
+  version: 3.4.1
+  resolution: "raf@npm:3.4.1"
+  dependencies:
+    performance-now: "npm:^2.1.0"
+  checksum: 10c0/337f0853c9e6a77647b0f499beedafea5d6facfb9f2d488a624f88b03df2be72b8a0e7f9118a3ff811377d534912039a3311815700d2b6d2313f82f736f9eb6e
   languageName: node
   linkType: hard
 
@@ -14851,7 +14870,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
 "react-masonry-css@npm:^1.0.16":
   version: 1.0.16
   resolution: "react-masonry-css@npm:1.0.16"
@@ -14885,8 +14903,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-=======
->>>>>>> upstream/main
 "react-overlays@npm:^5.2.1":
   version: 5.2.1
   resolution: "react-overlays@npm:5.2.1"

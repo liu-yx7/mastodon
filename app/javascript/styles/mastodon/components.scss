@@ -3,6 +3,8 @@
 @use 'functions' as *;
 @use 'mixins' as *;
 
+@import 'components/ai';
+
 .app-body {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_14_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -349,6 +349,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
     t.index ["reference_account_id"], name: "index_canonical_email_blocks_on_reference_account_id"
   end
 
+  create_table "chat_messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_chat_messages_on_account_id"
+    t.index ["conversation_id", "created_at"], name: "index_chat_messages_on_conversation_id_and_created_at"
+    t.index ["conversation_id"], name: "index_chat_messages_on_conversation_id"
+  end
+
   create_table "conversation_mutes", force: :cascade do |t|
     t.bigint "conversation_id", null: false
     t.bigint "account_id", null: false
@@ -553,6 +564,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
     t.bigint "user_id"
     t.index ["uid", "provider"], name: "index_identities_on_uid_and_provider", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.integer "type", null: false
+    t.boolean "approved", default: false, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "data_file_name"
+    t.string "data_content_type"
+    t.integer "data_file_size"
+    t.datetime "data_updated_at", precision: nil
+    t.bigint "account_id", null: false
+    t.boolean "overwrite", default: false, null: false
   end
 
   create_table "invites", force: :cascade do |t|
@@ -1314,6 +1338,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
   add_foreign_key "bulk_import_rows", "bulk_imports", on_delete: :cascade
   add_foreign_key "bulk_imports", "accounts", on_delete: :cascade
   add_foreign_key "canonical_email_blocks", "accounts", column: "reference_account_id", on_delete: :cascade
+  add_foreign_key "chat_messages", "accounts", on_delete: :cascade
+  add_foreign_key "chat_messages", "conversations", on_delete: :cascade
   add_foreign_key "conversation_mutes", "accounts", name: "fk_225b4212bb", on_delete: :cascade
   add_foreign_key "conversation_mutes", "conversations", on_delete: :cascade
   add_foreign_key "custom_filter_keywords", "custom_filters", on_delete: :cascade
@@ -1439,9 +1465,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
   add_index "instances", ["domain"], name: "index_instances_on_domain", unique: true
 
   create_view "user_ips", sql_definition: <<-SQL
-      SELECT user_id,
-      ip,
-      max(used_at) AS used_at
+      SELECT t0.user_id,
+      t0.ip,
+      max(t0.used_at) AS used_at
      FROM ( SELECT users.id AS user_id,
               users.sign_up_ip AS ip,
               users.created_at AS used_at
@@ -1458,7 +1484,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
               login_activities.created_at
              FROM login_activities
             WHERE (login_activities.success = true)) t0
-    GROUP BY user_id, ip;
+    GROUP BY t0.user_id, t0.ip;
   SQL
   create_view "account_summaries", materialized: true, sql_definition: <<-SQL
       SELECT accounts.id AS account_id,
@@ -1479,9 +1505,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
   add_index "account_summaries", ["account_id"], name: "index_account_summaries_on_account_id", unique: true
 
   create_view "global_follow_recommendations", materialized: true, sql_definition: <<-SQL
-      SELECT account_id,
-      sum(rank) AS rank,
-      array_agg(reason) AS reason
+      SELECT t0.account_id,
+      sum(t0.rank) AS rank,
+      array_agg(t0.reason) AS reason
      FROM ( SELECT account_summaries.account_id,
               ((count(follows.id))::numeric / (1.0 + (count(follows.id))::numeric)) AS rank,
               'most_followed'::text AS reason
@@ -1505,8 +1531,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_095859) do
                     WHERE (follow_recommendation_suppressions.account_id = statuses.account_id)))))
             GROUP BY account_summaries.account_id
            HAVING (sum((status_stats.reblogs_count + status_stats.favourites_count)) >= (5)::numeric)) t0
-    GROUP BY account_id
-    ORDER BY (sum(rank)) DESC;
+    GROUP BY t0.account_id
+    ORDER BY (sum(t0.rank)) DESC;
   SQL
   add_index "global_follow_recommendations", ["account_id"], name: "index_global_follow_recommendations_on_account_id", unique: true
 

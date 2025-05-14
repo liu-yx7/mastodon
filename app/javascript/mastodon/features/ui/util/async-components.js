@@ -178,6 +178,11 @@ export function Explore () {
   return import(/* webpackChunkName: "features/explore" */'../../explore');
 }
 
+export function AI () {
+  return import(/* webpackChunkName: "features/explore" */'../../ai');
+}
+
+
 export function Search () {
   return import(/* webpackChunkName: "features/explore" */'../../search');
 }

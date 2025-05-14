@@ -153,11 +153,17 @@ class NavigationPanel extends Component {
             </>
           )}
 
-          {/* {trendsEnabled ? (
+          {trendsEnabled ? (
+            <ColumnLink transparent to='/ai' icon='explore' iconComponent={ExploreIcon} activeIconComponent={ExploreActiveIcon} text={intl.formatMessage(messages.explore)} />
+          ) : (
+            <ColumnLink transparent to='/search' icon='search' iconComponent={SearchIcon} text={intl.formatMessage(messages.search)} />
+          )}
+
+          {trendsEnabled ? (
             <ColumnLink transparent to='/explore' icon='explore' iconComponent={ExploreIcon} activeIconComponent={ExploreActiveIcon} text={intl.formatMessage(messages.explore)} />
           ) : (
             <ColumnLink transparent to='/search' icon='search' iconComponent={SearchIcon} text={intl.formatMessage(messages.search)} />
-          )} */}
+          )}
 
           {(signedIn || timelinePreview) && (
             <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' iconComponent={PublicIcon} text={intl.formatMessage(messages.firehose)} />
@@ -202,7 +208,6 @@ class NavigationPanel extends Component {
       </div>
     );
   }
-
 }
 
 export default injectIntl(withIdentity(NavigationPanel));

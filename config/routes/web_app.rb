@@ -5,6 +5,7 @@
 # - Have alternative format representations
 
 %w(
+  /ai/(*any)
   /blocks
   /bookmarks
   /conversations

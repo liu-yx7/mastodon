@@ -75,6 +75,7 @@ import {
   PrivacyPolicy,
   TermsOfService,
   AccountFeatured,
+  AI,
 } from './util/async-components';
 import { ColumnsContextProvider } from './util/columns_context';
 import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
@@ -234,6 +235,8 @@ class SwitchingColumnsArea extends PureComponent {
             <WrappedRoute path='/start/follows' component={OnboardingFollows} content={children} />
             <WrappedRoute path='/directory' component={Directory} content={children} />
             <WrappedRoute path='/explore' component={Explore} content={children} />
+            {/* add ai path */}
+            <WrappedRoute path='/ai' component={AI} content={children} />
             <WrappedRoute path='/search' component={Search} content={children} />
             <WrappedRoute path={['/publish', '/statuses/new']} component={Compose} content={children} />
 

@@ -309,6 +309,10 @@ namespace :api, format: false do
 
       resources :tags, only: [:index, :show, :update]
     end
+
+    namespace :ai do
+      post :chat, to: 'ai#chat'
+    end
   end
 
   namespace :v2 do
